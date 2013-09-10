@@ -15,7 +15,9 @@ public class MainActivity extends Activity {
 	private GameModel model;
 	private GameView view;
 	private GameController controller;
+	
 	private Thread modelThread;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,8 @@ public class MainActivity extends Activity {
 				Log.i(TAG, "Could not join modelThread... trying again...");
 			}
 		}
+		
+		view.destroy();
 	}
 	
 }
