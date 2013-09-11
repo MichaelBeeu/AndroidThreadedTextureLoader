@@ -6,7 +6,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/1.6/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/1.6/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/1.6/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/1.6/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/views/GameView.java" afterPath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/views/GameView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/vos/TestMesh.java" afterPath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/vos/TestMesh.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/daos/TextureLoader.java" afterPath="$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/daos/TextureLoader.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -84,7 +83,7 @@
       <file leaf-file-name="GameView.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/views/GameView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="199" column="0" selection-start="5800" selection-end="5800" vertical-scroll-proportion="0.93273544" vertical-offset="2569" max-vertical-offset="3315">
+            <state line="49" column="78" selection-start="1686" selection-end="1686" vertical-scroll-proportion="0.2673522" vertical-offset="631" max-vertical-offset="3435">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -95,7 +94,7 @@
       <file leaf-file-name="TextureLoader.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/daos/TextureLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="9" selection-start="934" selection-end="934" vertical-scroll-proportion="0.0" vertical-offset="278" max-vertical-offset="1785">
+            <state line="39" column="94" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1920">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -512,7 +511,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1439" y="27" width="1368" height="742" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -524,13 +523,13 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18119659" sideWeight="0.5967988" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2786325" sideWeight="0.5967988" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17759146" sideWeight="0.8188034" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17759146" sideWeight="0.72136754" order="3" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32991454" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -631,7 +630,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/daos/TextureLoader.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="9" selection-start="934" selection-end="934" vertical-scroll-proportion="0.0" vertical-offset="278" max-vertical-offset="1785">
+        <state line="39" column="94" selection-start="1116" selection-end="1116" vertical-scroll-proportion="0.0" vertical-offset="436" max-vertical-offset="1920">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -640,7 +639,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/github/MichaelBeeu/threadedtexture/views/GameView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="199" column="0" selection-start="5800" selection-end="5800" vertical-scroll-proportion="0.93273544" vertical-offset="2569" max-vertical-offset="3315">
+        <state line="49" column="78" selection-start="1686" selection-end="1686" vertical-scroll-proportion="0.2673522" vertical-offset="631" max-vertical-offset="3435">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

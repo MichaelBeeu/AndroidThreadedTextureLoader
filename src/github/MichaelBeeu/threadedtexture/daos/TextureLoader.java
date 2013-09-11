@@ -26,7 +26,7 @@ public class TextureLoader extends Observable implements Runnable {
 	private Context ctx;
 
     // TODO: Set up EGL context, and load the texture into GL via the thread.
-	public class TextureBuffer {
+	public static class TextureBuffer {
 		private Bitmap bitmap;
 		private String name;
 		
@@ -34,6 +34,15 @@ public class TextureLoader extends Observable implements Runnable {
 			bitmap = null;
 			name = null;
 		}
+
+        public void copy(TextureBuffer buf){
+            synchronized(bitmap){
+                buf.bitmap = bitmap.copy( bitmap.getConfig(), bitmap.isMutable()?true:false );
+            }
+            synchronized(name){
+                buf.name = name;
+            }
+        }
 		
 		public String getName(){
 			synchronized( name ){

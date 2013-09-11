@@ -15,6 +15,7 @@ import java.util.Observer;
 import java.util.Observable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -45,7 +46,8 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 	private TextureLoader texLoader;
 	private Thread texLoadThread;
 	private HashMap<String, Integer> textures;
-	private TextureLoader.TextureBuffer texLoaderBuf = null;
+
+    private volatile ArrayBlockingQueue<TextureLoader.TextureBuffer> texQueue;
 	
 	Shader shader;
 	Mesh testMesh;
@@ -53,6 +55,8 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 	public GameView( Context _ctx, GameModel _model ){
 		Matrix.setIdentityM(mModelMatrix, 0);
 		textures = new HashMap<String, Integer>();
+        texQueue = new ArrayBlockingQueue<TextureLoader.TextureBuffer>( 100 );
+
 		ctx = _ctx;
 		model = _model;
 		
@@ -73,13 +77,16 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 	
 	@Override
 	public void update(Observable o, Object arg){
-		// TODO: Ask for redraw
+		// TODO: Ask for redraw?
 		//requestRender();
 		Log.i(TAG, "Notified");
 		if( o instanceof TextureLoader ){
 			if( arg instanceof TextureLoader.TextureBuffer ){
 				TextureLoader.TextureBuffer bmp = (TextureLoader.TextureBuffer)arg;
-				texLoaderBuf = bmp;
+				TextureLoader.TextureBuffer tmp = new TextureLoader.TextureBuffer();
+
+                bmp.copy( tmp );
+                texQueue.add( tmp );
 			}
 			
 		} else if( o instanceof GameModel ){
@@ -147,9 +154,10 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 	@Override
 	public void onDrawFrame(GL10 unused){
 		// TODO: Try to pull this out of the rendering method.
-		if(texLoaderBuf != null){
-			Bitmap bitmap = texLoaderBuf.getBitmap();
-			Log.i(TAG, "Texture ready?!!" + texLoaderBuf.getName());
+        TextureLoader.TextureBuffer buf;
+		if( (buf = texQueue.poll()) != null){
+			Bitmap bitmap = buf.getBitmap();
+			Log.i(TAG, "Texture ready?!!" + buf.getName());
 			
 			int texHandle[] = new int[1];
 			// Generate GL texture
@@ -164,11 +172,11 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 				// Load the bitmap into the texture
 				GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
 				
-				textures.put( texLoaderBuf.getName(), texHandle[0] );
+				textures.put( buf.getName(), texHandle[0] );
 			}
 			// Recycle bitmap data--GL has it now.
 			bitmap.recycle();
-			texLoaderBuf = null;
+			//textureReady = false;
 		}
 
 		GLES20.glClear( GLES20.GL_COLOR_BUFFER_BIT );
