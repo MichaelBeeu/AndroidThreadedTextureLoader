@@ -37,7 +37,6 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 	private final float[] mProjMatrix = new float[16];
 	private final float[] mVMatrix = new float[16];
 	private final float[] mModelMatrix = new float[16];
-	private final float[] mRotationMatrix = new float[16];
 	private final float[] mTemp= new float[16];
 	
 	private final Context ctx;
@@ -70,42 +69,6 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 		
 		
 		testMesh = new TestMesh();
-		
-		//texLoader.addTexture( "SomeTexture.png" );
-		//texLoader.addTexture( "SomeTexture1.png" );
-		//texLoader.addTexture( "SomeTexture2.png" );
-
-	}
-	
-	public void loadTexture(String str){
-		final BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inScaled = false;
-		Log.i(TAG, "Loading texture: "+str);
-        Bitmap bmp;
-		try {
-			bmp = BitmapFactory.decodeStream( ctx.getAssets().open(str) );
-			int texHandle[] = new int[1];
-			
-			GLES20.glGenTextures(1, texHandle, 0);
-            if(texHandle[0]!=0){
-                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texHandle[0]);
-
-                // Set texture parameters
-				GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
-				GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
-
-				// Load the bitmap into the texture
-				GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bmp, 0);
-
-                textures.put( str, texHandle[0] );
-            } else {
-                Log.e(TAG, "Could not GenTexture!");
-            }
-
-            bmp.recycle();
-        } catch( IOException e){
-            Log.e(TAG, "Error loading texture: "+e.getMessage());
-        }
 	}
 	
 	@Override
@@ -145,19 +108,18 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 			Log.e(TAG, "Error reading: " + e.getMessage() );
 		}
 
+        // Add textures to thread's queue.
         texLoader.addTexture( "SomeTexture.png" );
         texLoader.addTexture( "SomeTexture1.png" );
         texLoader.addTexture( "SomeTexture2.png" );
-
-        //loadTexture("SomeTexture.png");
-        //loadTexture("SomeTexture1.png");
-        //loadTexture("SomeTexture2.png");
 	}
 	
 	public void destroy(){
 		Log.i(TAG, "destroy()");
 		texLoader.setRunning( false );
 		boolean retry = true;
+
+        // End texture loading thread
 		while( retry ){
 			try {
 				texLoadThread.join();
@@ -166,6 +128,8 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 				Log.i(TAG, "Could not join texLoadThread... trying again...");
 			}
 		}
+
+        // Delete all textures
 		Iterator it = textures.entrySet().iterator();
 		while(it.hasNext()){
 			Map.Entry pairs = (Map.Entry)it.next();
@@ -176,6 +140,7 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 			GLES20.glDeleteTextures(1, tmpId, 0);
 			it.remove();
 		}
+
 		shader.destroy();
 	}
 	
@@ -207,23 +172,15 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 		}
 
 		GLES20.glClear( GLES20.GL_COLOR_BUFFER_BIT );
-		
-		// TODO: Render
+
 		shader.use();
 		
 		// Set up camera
 		Matrix.setIdentityM(mModelMatrix, 0);
-		Matrix.setIdentityM(mVMatrix, 0);
-		double time = System.currentTimeMillis() / 1000.0;
 		Matrix.setLookAtM(mVMatrix, 0, 0, 0, -2, 0f, 0f, 0f, 0f, 1.f, 0f);
-		
-		//Matrix.rotateM(mModelMatrix, 0, (float)time*100.f, 0f, 0f, 1f);
-		//Matrix.setRotateM(mRotationMatrix, 0, 0, 0, 0, -1.f);
-		//Matrix.multiplyMM(mMVPMatrix, 0, mRotationMatrix, 0, mMVPMatrix, 0);
 		
 		int mMVPMatrixHandle;
 		mMVPMatrixHandle = shader.getUniformLocation("uMVPMatrix");
-
 		
 		Iterator it = textures.entrySet().iterator();
 		while(it.hasNext()){
@@ -232,27 +189,15 @@ public class GameView implements GLSurfaceView.Renderer, Observer {
 			GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, id);
 
 			// other matrices
-			//float tempMatrix = new float[16];
 			Matrix.multiplyMM(mTemp, 0, mVMatrix, 0, mModelMatrix, 0);
 			Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mTemp, 0);
 
-			//Matrix.multiplyMM(mTemp, 0, mVMatrix, 0, mModelMatrix, 0);
-			//Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mTemp, 0);
-
-			//Matrix.multiplyMM(mMVPMatrix, 0, mVMatrix, 0, mModelMatrix, 0);
-			//Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mMVPMatrix, 0);
-
-			//Matrix.multiplyMM(mRotationMatrix, 0, mProjMatrix, 0, mVMatrix, 0);
-			//Matrix.multiplyMM(mMVPMatrix, 0, mRotationMatrix, 0, mModelMatrix, 0);
-			//Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mVMatrix, 0);
-			//Matrix.multiplyMM(mMVPMatrix, 0, mMVPMatrix, 0, mModelMatrix, 0);
 			GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 			testMesh.draw( shader );
 			
 			Matrix.translateM(mModelMatrix, 0, -1f, 0f, 0f);
-			//it.remove();
 		}
-		Matrix.setLookAtM(mVMatrix, 0, (float)Math.sin(time), 0, -2, 0f, 0f, 0f, 0f, 1.f, 0f);
+
 		Matrix.multiplyMM(mMVPMatrix, 0, mProjMatrix, 0, mVMatrix, 0);
 		GLES20.glUniformMatrix4fv(mMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 		

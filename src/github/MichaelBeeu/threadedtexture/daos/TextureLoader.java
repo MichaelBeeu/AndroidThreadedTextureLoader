@@ -16,8 +16,7 @@ public class TextureLoader extends Observable implements Runnable {
 	private final String TAG = "TextureLoader";
 	
 	private volatile ArrayBlockingQueue<String> queue;
-	//private volatile Bitmap bitmapBuffer[];
-	//private Semaphore bitmapSem[];
+
 	private int activeBitmap = 0;
 	
 	private volatile TextureBuffer texBuffer[];
@@ -25,15 +24,14 @@ public class TextureLoader extends Observable implements Runnable {
 	private volatile Boolean running = true;
 
 	private Context ctx;
-	
+
+    // TODO: Set up EGL context, and load the texture into GL via the thread.
 	public class TextureBuffer {
 		private Bitmap bitmap;
-		//private Semaphore semaphore;
 		private String name;
 		
 		public TextureBuffer(){
 			bitmap = null;
-			//semaphore = new Semapore(1);
 			name = null;
 		}
 		
@@ -56,14 +54,6 @@ public class TextureLoader extends Observable implements Runnable {
 	public TextureLoader(Context context){
 		queue = new ArrayBlockingQueue<String>( 100 );
 		texBuffer = new TextureBuffer[2];
-		//bitmapBuffer = new Bitmap[2];
-		//bitmapSem = new Semaphore[2];
-		
-		//bitmapBuffer[0] = Bitmap.createBitmap(1,1,Bitmap.Config.ARGB_8888);
-		//bitmapBuffer[1] = Bitmap.createBitmap(1,1,Bitmap.Config.ARGB_8888);
-		
-		//bitmapSem[0] = new Semaphore(1);
-		//bitmapSem[1] = new Semaphore(1);
 		
 		texBuffer[0] = new TextureBuffer();
 		texBuffer[1] = new TextureBuffer();
