@@ -32,6 +32,15 @@ public class Shader {
 		}
 		return false;
 	}
+	
+	public void destroy(){
+		Log.i(TAG, "Freeing shader...");
+		GLES20.glDeleteProgram( program );
+		GLES20.glDeleteShader( fragmentShader );
+		GLES20.glDeleteShader( vertexShader );
+		
+		program = vertexShader = fragmentShader = 0;
+	}
 		
 	public boolean isOkay(){
 		return (program != 0) && (vertexShader != 0) && (fragmentShader != 0);

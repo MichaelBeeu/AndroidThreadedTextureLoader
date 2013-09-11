@@ -42,7 +42,7 @@ public class Mesh {
 									  GLES20.GL_FLOAT, false,
 									  2 * 4, textureBuffer);
 		
-		final float color[] = {0.2f, 0.7f, 0.8f, 1.f};
+		final float color[] = {1f, 1f, 1f, 1.f};
 		mColorHandle = shader.getUniformLocation("uColor");
 		GLES20.glUniform4fv(mColorHandle, 1, color, 0);
 		
